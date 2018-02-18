@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>deep-element-behavior test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../demo/deep-element.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <deep-element-behavior></deep-element-behavior>
+      </template>
+    </test-fixture>
+
+    <script>
+      describe('deep-element-behavior', () => {
+        let element;
+
+        beforeEach(() => {
+          element = fixture('basic');
+        });
+
+        /* Sanity check */
+        it('should be the correct element', () => {
+          expect(element.localName).to.equal('deep-element');
+        });
+
+        describe('use cases', () => {
+          it('should set the visibility of the element', () => {
+            fail();
+          });
+        });
+
+        describe('public interface', () => {
+          fail();
+        });
+
+        describe('event interface', () => {
+          fail();
+        });
+      });
+    </script>
+
+  </body>
+</html>
