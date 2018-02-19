@@ -3,7 +3,7 @@
   "description": "Polymer behavior providing useful hooks into HTMLElement state (i.e, element.isVisible if the element is displayed to the user).",
   "main": "deep-element-behavior.html",
   "dependencies": {
-    "deep-intersection-observer": "ThinkDeepTech/deep-intersection-observer#hm/impl",
+    "deep-intersection-observer": "ThinkDeepTech/deep-intersection-observer#^0.0.1",
     "polymer": "Polymer/polymer#^1.0 || ^2.0"
   },
   "devDependencies": {
