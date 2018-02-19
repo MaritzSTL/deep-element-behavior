@@ -1,10 +1,11 @@
 <script>
   window.deep = window.deep || {};
 
+  // TODO: JSDoc
   ElementBehaviorImpl = {
     properties: {
       /* True if the element is visible to the user. False otherwise. */
-      isVisible: {
+      isVisibleToUser: {
         type: Boolean,
         value: false
       },
@@ -12,17 +13,17 @@
       __resizeObserver: Object
     },
     attached() {
-      this.__resizeObserver = new ResizeObserver(this.__updateVisibility);
+      this.__resizeObserver = new ResizeObserver(this.__updateVisibility.bind(this));
       this.__resizeObserver.observe(this);
     },
     detached() {
-
+      this.__resizeObserver.disconnect();
     },
     __updateVisibility(resizeEntries) {
       if(!Array.isArray(resizeEntries) || !resizeEntries.length) return;
       const boundingRectangle = resizeEntries[0].contentRect;
       const {height, width} = boundingRectangle;
-      this.set('isVisible', Boolean(height) || Boolean(width)); 
+      this.set('isVisibleToUser', Boolean(height) || Boolean(width));
     }
   };
   deep.ElementBehavior = [ElementBehaviorImpl];
