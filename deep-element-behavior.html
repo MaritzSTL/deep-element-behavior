@@ -1,3 +1,5 @@
+<link rel="import" href="../deep-intersection-observer/deep-intersection-observer.html">
+
 <script>
   window.deep = window.deep || {};
 
@@ -8,20 +10,22 @@
       isVisibleToUser: {
         type: Boolean,
         value: false
-      },
-      /* Observer monitoring resize events */
-      __resizeObserver: Object
+      }
     },
     attached() {
-      this.__resizeObserver = new ResizeObserver(this.__updateVisibility.bind(this));
-      this.__resizeObserver.observe(this);
+      // NOTE: A null root defaults to the device view port.
+      this.__visibilityObserver = new IntersectionObserver(this.__updateVisibility.bind(this), {
+        root: this.parentNode || null,
+        threshold: 0.9
+      });
+      this.__visibilityObserver.observe(this);
     },
     detached() {
-      this.__resizeObserver.disconnect();
+      this.__visibilityObserver.disconnect();
     },
-    __updateVisibility(resizeEntries) {
-      if(!Array.isArray(resizeEntries) || !resizeEntries.length) return;
-      const boundingRectangle = resizeEntries[0].contentRect;
+    __updateVisibility(entries) {
+      if(!Array.isArray(entries) || !entries.length) return;
+      const boundingRectangle = entries[0].boundingClientRect || {height: 0, width: 0};
       const {height, width} = boundingRectangle;
       this.set('isVisibleToUser', Boolean(height) || Boolean(width));
     }
