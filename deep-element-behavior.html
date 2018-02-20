@@ -16,7 +16,7 @@
       // NOTE: A null root defaults to the device view port.
       this.__visibilityObserver = new IntersectionObserver(this.__updateVisibility.bind(this), {
         root: this.parentNode || null,
-        threshold: 0.9
+        threshold: [0, 1.0]
       });
       this.__visibilityObserver.observe(this);
     },
