@@ -19,6 +19,11 @@
         threshold: [0, 1.0]
       });
       this.__visibilityObserver.observe(this);
+
+      const that = this;
+      window.addEventListener('checkForIntersections', function() {
+        that.__visibilityObserver._checkForIntersections();
+      });
     },
     detached() {
       this.__visibilityObserver.disconnect();
