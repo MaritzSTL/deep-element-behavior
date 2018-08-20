@@ -4,19 +4,19 @@
   window.deep = window.deep || {};
 
   // TODO: JSDoc
-  ElementBehaviorImpl = {
+  const ElementBehaviorImpl = {
     properties: {
       /* True if the element is visible to the user. False otherwise. */
       isVisibleToUser: {
         type: Boolean,
-        value: false
-      }
+        value: false,
+      },
     },
     attached() {
       // NOTE: A null root defaults to the device view port.
       this.__visibilityObserver = new IntersectionObserver(this.__updateVisibility.bind(this), {
         root: this.parentNode || null,
-        threshold: [0, 1.0]
+        threshold: [0, 1.0],
       });
       this.__visibilityObserver.observe(this);
 
@@ -29,11 +29,12 @@
       this.__visibilityObserver.disconnect();
     },
     __updateVisibility(entries) {
-      if(!Array.isArray(entries) || !entries.length) return;
+      if (!Array.isArray(entries) || !entries.length) return;
       const boundingRectangle = entries[0].boundingClientRect || {height: 0, width: 0};
       const {height, width} = boundingRectangle;
       this.set('isVisibleToUser', Boolean(height) || Boolean(width));
-    }
+    },
   };
-  deep.ElementBehavior = [ElementBehaviorImpl];
+
+  window.deep.ElementBehavior = [ElementBehaviorImpl];
 </script>
