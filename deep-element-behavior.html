@@ -21,9 +21,11 @@
       this.__visibilityObserver.observe(this);
 
       const that = this;
-      window.addEventListener('checkForIntersections', function() {
-        that.__visibilityObserver._checkForIntersections();
-      });
+      if (typeof that.__visibilityObserver._checkForIntersections === 'function') {
+        window.addEventListener('checkForIntersections', function() {
+          that.__visibilityObserver._checkForIntersections();
+        });
+      }
     },
     detached() {
       this.__visibilityObserver.disconnect();
